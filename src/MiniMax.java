@@ -18,6 +18,7 @@ public class MiniMax {
     	boardCopy = new int[board.length][board[0].length];
     	depthLimit = dL ;
     	constructTree() ;
+    	evaluate(root) ; 
     }
  
     private void constructTree() {
@@ -25,11 +26,19 @@ public class MiniMax {
     	boardCopy = copyBoard(board);
         root = new TreeNode(boardCopy, currentP, null);
         //tree.setRoot(root);
-        expandTree(root, depthLimit);
-        
+        expandTree(root, depthLimit);       
     }
     
+    private void evaluate(TreeNode node){
+    	
+    }
+    
+    
     private void expandTree(TreeNode node, int limit){
+    	
+    	if(limit == 0){
+    		return ;
+    	}
     	
     	if(node.getPlayer().equals("White")){
     		for(int i =0; i < boardCopy.length; i++){
@@ -88,6 +97,10 @@ public class MiniMax {
     				}
     			}
     		}
+    	}
+    	limit--;
+    	for(int i = 0; i < node.getChildren().size(); i++){
+    		expandTree(node.getChildren().get(i), limit) ;
     	}
     }  
     

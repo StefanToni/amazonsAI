@@ -6,6 +6,7 @@ public class TreeNode {
 	private String player ;
 	private TreeNode parent ;
 	private ArrayList<TreeNode> children ;
+	private int score ;
 	
 	public TreeNode(int[][] b, String pl, TreeNode pa){
 		children = new ArrayList<TreeNode>() ;
@@ -59,6 +60,14 @@ public class TreeNode {
 		else{
 			return false ;
 		}
+	}
+	
+	public void setScore(int s){
+		score = s ;
+	}
+	
+	public int getScore(){
+		return score ;
 	}
 
 }
