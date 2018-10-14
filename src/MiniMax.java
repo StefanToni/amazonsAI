@@ -5,34 +5,50 @@ public class MiniMax {
     //private SearchTree tree;
     private GameTile[][] board;
     private String currentP;
+    private TreeNode root ;
+    int[][] boardCopy;
+    int depthLimit ;
     
-    public MiniMax(GameTile[][] b, String p) {
+    
+    public MiniMax(GameTile[][] b, String p, int dL) {
     	this.board = b;
     	this.currentP = p;
-    	
-    	
+    	boardCopy = new int[board.length][board[0].length];
+    	depthLimit = dL ;
+    	constructTree() ;
     }
  
-    public void constructTree() {
+    private void constructTree() {
         //tree = new SearchTree(null);
-    	int boardCopy[][] = new int[board.length][board[0].length];
     	boardCopy = copyBoard(board);
-        TreeNode root = new TreeNode(boardCopy, currentP, null);
+        root = new TreeNode(boardCopy, currentP, null);
         //tree.setRoot(root);
-        constructTree(root);
+        expandTree(root, depthLimit);
     }
- 
-    private void constructTree(TreeNode parentNode) {
-        List<Integer> listofPossibleHeaps 
-          = GameOfBones.getPossibleStates(parentNode.getNoOfBones());
-        boolean isChildMaxPlayer = !parentNode.isMaxPlayer();
-        listofPossibleHeaps.forEach(n -> {
-            Node newNode = new Node(n, isChildMaxPlayer);
-            parentNode.addChild(newNode);
-            if (newNode.getNoOfBones() > 0) {
-                constructTree(newNode);
-            }
-        });
+    
+    private void expandTree(TreeNode root, int limit){
+    	if(root.getPlayer().equals("White")){
+    		for(int i =0; i < boardCopy.length; i++){
+    			for(int j= 0; j < boardCopy[0].length; j++){
+    				if(boardCopy[i][j] == 1){
+    					
+    				}
+    			}
+    		}
+    	}
+    	else{
+    		for(int i =0; i < boardCopy.length; i++){
+    			for(int j= 0; j < boardCopy[0].length; j++){
+    				if(boardCopy[i][j] == 2){
+    					
+    				}
+    			}
+    		}
+    	}
+    }  
+    
+    private void checkForLegalMove(int i, int j, int[][] board){
+    	
     }
     
     //Player1 is 1, Player2 is 2, Arrow is 3, empty spots are 0
