@@ -2,7 +2,7 @@ import java.awt.Color;
 
 public class MiniMax {
 	
-    private SearchTree tree;
+    //private SearchTree tree;
     private GameTile[][] board;
     private String currentP;
     
@@ -15,12 +15,14 @@ public class MiniMax {
  
     public void constructTree(int noOfBones) {
         //tree = new SearchTree(null);
+    	int boardCopy[][] = new int[b.length][b[0].length];
+    	boardCopy = copyBoard(board);
         TreeNode root = new TreeNode(board, currentP, null);
         //tree.setRoot(root);
         constructTree(root);
     }
  
-    private void constructTree(Node parentNode) {
+    private void constructTree(TreeNode parentNode) {
         List<Integer> listofPossibleHeaps 
           = GameOfBones.getPossibleStates(parentNode.getNoOfBones());
         boolean isChildMaxPlayer = !parentNode.isMaxPlayer();
@@ -45,13 +47,17 @@ public class MiniMax {
     				else if (b[x][y].piece.color == Color.BLACK) {
     					board[x][y] = 2;
     				}
-    			
-    				else (b[x][y].shot) {
+    				else if (b[x][y].shot) {
     				board[x][y] = 3;
+    				}
+    				else { 
+    					board[x][y] = 0;
     				}
     			}
     		}
     	}
+    	
+    	return board;
     	
     }
     
