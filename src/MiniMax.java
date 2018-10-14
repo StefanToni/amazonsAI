@@ -18,7 +18,7 @@ public class MiniMax {
     	boardCopy = new int[board.length][board[0].length];
     	depthLimit = dL ;
     	constructTree() ;
-    	evaluate(root) ; 
+    	evaluateTree(root) ; 
     }
  
     private void constructTree() {
@@ -29,8 +29,18 @@ public class MiniMax {
         expandTree(root, depthLimit);       
     }
     
-    private void evaluate(TreeNode node){
+    private void evaluateTree(TreeNode node){
+    	//maybe should be private int[][] evaluateTree ???
     	
+    	//traverse the tree (post order traversal ??) and evaluate nodes and remember path in order to return best root child
+    	
+    }
+    
+    private int evaluateNode(TreeNode n){
+    	int score = 0;
+    	Evaluator xx = new Evaluator
+    	//evaluation function
+    	return score ;
     }
     
     
