@@ -6,20 +6,16 @@ public class TreeNode {
 	private String player ;
 	private TreeNode parent ;
 	private ArrayList<TreeNode> children ;
-	private SearchTree tree ;
 	
-	public TreeNode(GameTile[][] b, String pl, TreeNode pa, SearchTree st){
+	public TreeNode(GameTile[][] b, String pl, TreeNode pa){
 		children = new ArrayList<TreeNode>() ;
 		board = b ;
 		parent = pa;
-		player = pl ;	
-		tree = st ;
-		
+		player = pl ;			
 	}
 	
 	public void addChild(TreeNode c){
 		children.add(c) ;
-		tree.addNode(c);
 	}
 	
 	public ArrayList<TreeNode> getChildren(){
