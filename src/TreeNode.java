@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public class TreeNode {
 	
-	private GameTile[][] board ;
+	private int[][] board ;
 	private String player ;
 	private TreeNode parent ;
 	private ArrayList<TreeNode> children ;
 	
-	public TreeNode(GameTile[][] b, String pl, TreeNode pa){
+	public TreeNode(int[][] b, String pl, TreeNode pa){
 		children = new ArrayList<TreeNode>() ;
 		board = b ;
 		parent = pa;
@@ -39,7 +39,7 @@ public class TreeNode {
 		}
 	}
 	
-	public GameTile[][] getBoard(){
+	public int[][] getBoard(){
 		return board ;
 	}
 	

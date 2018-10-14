@@ -13,11 +13,11 @@ public class MiniMax {
     	
     }
  
-    public void constructTree(int noOfBones) {
+    public void constructTree() {
         //tree = new SearchTree(null);
-    	int boardCopy[][] = new int[b.length][b[0].length];
+    	int boardCopy[][] = new int[board.length][board[0].length];
     	boardCopy = copyBoard(board);
-        TreeNode root = new TreeNode(board, currentP, null);
+        TreeNode root = new TreeNode(boardCopy, currentP, null);
         //tree.setRoot(root);
         constructTree(root);
     }
