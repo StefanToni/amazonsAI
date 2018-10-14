@@ -48,7 +48,9 @@ public class MiniMax {
     }  
     
     private void checkForLegalMove(int i, int j, int[][] board){
-    	
+    	//horizontal moves
+    	//vertical moves
+    	//diagonal moves
     }
     
     //Player1 is 1, Player2 is 2, Arrow is 3, empty spots are 0
