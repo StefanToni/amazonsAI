@@ -124,18 +124,18 @@ public class MiniMax {
     	int board[][] = new int[b.length][b[0].length];
     	for(int x = 0; x < b.length; x++) {
     		for (int y = 0; y < b[0].length; y++) {
-    			if (b[x][y].hasPiece) {
-    				if(b[x][y].piece.color == Color.WHITE){
-    					board[x][y] = 1;
+    			if (b[y][x].hasPiece) {
+    				if(b[y][x].piece.color == Color.WHITE){
+    					board[y][x] = 1;
     				}
-    				else if (b[x][y].piece.color == Color.BLACK) {
-    					board[x][y] = 2;
+    				else if (b[y][x].piece.color == Color.BLACK) {
+    					board[y][x] = 2;
     				}
-    				else if (b[x][y].shot) {
-    				board[x][y] = 3;
+    				else if (b[y][x].shot) {
+    				board[y][x] = 3;
     				}
     				else { 
-    					board[x][y] = 0;
+    					board[y][x] = 0;
     				}
     			}
     		}
