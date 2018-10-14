@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.Point;
+import java.util.ArrayList;
 
 public class MiniMax {
 	
@@ -24,14 +26,16 @@ public class MiniMax {
         root = new TreeNode(boardCopy, currentP, null);
         //tree.setRoot(root);
         expandTree(root, depthLimit);
+        
     }
     
     private void expandTree(TreeNode root, int limit){
+    	
     	if(root.getPlayer().equals("White")){
     		for(int i =0; i < boardCopy.length; i++){
     			for(int j= 0; j < boardCopy[0].length; j++){
     				if(boardCopy[i][j] == 1){
-    					
+    					ArrayList<Point> possibleM = checkForLegalMoves(i,j, boardCopy);
     				}
     			}
     		}
@@ -47,10 +51,12 @@ public class MiniMax {
     	}
     }  
     
-    private void checkForLegalMove(int i, int j, int[][] board){
+    private ArrayList<Point> checkForLegalMoves(int i, int j, int[][] board){
+    	ArrayList<Point> moves = new ArrayList<>;
     	//horizontal moves
     	//vertical moves
     	//diagonal moves
+    	return moves;
     }
     
     //Player1 is 1, Player2 is 2, Arrow is 3, empty spots are 0
