@@ -36,6 +36,26 @@ public class MiniMax {
     			for(int j= 0; j < boardCopy[0].length; j++){
     				if(boardCopy[i][j] == 1){
     					ArrayList<Point> possibleM = checkForLegalMoves(i,j, boardCopy);
+    					for(int p = 0; p < possibleM.size(); p++) {
+    						Point dest = possibleM.get(p);
+    						int[][] movePerformed = new int[boardCopy.length][boardCopy[0].length];
+    						for(int y = 0; y < boardCopy.length; y++) {
+    							for (int x = 0; x < boardCopy[0].length; x++) {
+    								movePerformed[y][x] = boardCopy[y][x];
+    								
+    			    			}
+    			    		}
+    						movePerformed[i][j] = 0;
+							movePerformed[dest.y][dest.x] = 1;
+							ArrayList<Point> possibleS = checkForLegalMoves(i,j, movePerformed);
+							for(int s = 0; s < possibleS.size(); s++){
+								Point shot = possibleS.get(s);
+								int[][] finished = new int[movePerformed.length][movePerformed[0].length];
+								finished[shot.y][shot.x] = 3 ;
+								TreeNode newNode = new TreeNode(finished, "Black", node);
+								node.addChild(newNode);
+							}
+    					}
     				}
     			}
     		}
@@ -45,6 +65,26 @@ public class MiniMax {
     			for(int j= 0; j < boardCopy[0].length; j++){
     				if(boardCopy[i][j] == 2){
     					ArrayList<Point> possibleM = checkForLegalMoves(i,j, boardCopy);
+    					for(int p = 0; p < possibleM.size(); p++) {
+    						Point dest = possibleM.get(p);
+    						int[][] movePerformed = new int[boardCopy.length][boardCopy[0].length];
+    						for(int y = 0; y < boardCopy.length; y++) {
+    							for (int x = 0; x < boardCopy[0].length; x++) {
+    								movePerformed[y][x] = boardCopy[y][x];
+    								
+    			    			}
+    			    		}
+    						movePerformed[i][j] = 0;
+							movePerformed[dest.y][dest.x] = 2;
+							ArrayList<Point> possibleS = checkForLegalMoves(i,j, movePerformed);
+							for(int s = 0; s < possibleS.size(); s++){
+								Point shot = possibleS.get(s);
+								int[][] finished = new int[movePerformed.length][movePerformed[0].length];
+								finished[shot.y][shot.x] = 3 ;
+								TreeNode newNode = new TreeNode(finished, "White", node);
+								node.addChild(newNode);
+							}
+    					}
     				}
     			}
     		}
@@ -77,7 +117,7 @@ public class MiniMax {
     		if(board[yUp][j] == 1 || board[yUp][j] == 2 || board[yUp][j] == 3){
     			break ;
     		}
-    		moves.add(new Point(yUp, j)) ;
+    		moves.add(new Point(j, yUp)) ;
     	}
     	//diagonal moves
     	//top right
@@ -86,7 +126,7 @@ public class MiniMax {
     			if(board[yUp][xRight] == 1 || board[yUp][xRight] == 2 || board[yUp][xRight] == 3){
         			break ;
         		}
-    			moves.add(new Point(yUp, xRight)) ;
+    			moves.add(new Point(xRight, yUp)) ;
     		}
     	}
     	//bottom right
