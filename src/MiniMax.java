@@ -12,6 +12,7 @@ public class MiniMax {
     private boolean BlackWon = false;
     int[][] boardCopy;
     int depthLimit ;
+    int evaluationType = 1 ;
     
     
     public MiniMax(GameTile[][] b, String p, int dL) {
@@ -46,7 +47,7 @@ public class MiniMax {
     
     private void evaluateNode(TreeNode n, int ogP){
     	int score ;
-    	Evaluator eval = new Evaluator(1) ;
+    	Evaluator eval = new Evaluator(evaluationType) ;
     	score = eval.evaluate(n, ogP) ;
     	n.setScore(score);
     }
