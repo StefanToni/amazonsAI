@@ -8,36 +8,36 @@ public class Evaluator {
 		type = t ;
 	}
 	
-	public void evaluate(TreeNode root){
+	public void evaluate(TreeNode node){
 		
 		if(type == 0){
-			randomEvaluate(root) ;
+			randomEvaluate(node) ;
 		}
 		if(type == 1){
-			greedyEvaluate(root) ;
+			greedyEvaluate(node) ;
 		}
 		if(type == 2){
-			randomScoreAssignEvaluate(root) ;
+			randomScoreAssignEvaluate(node) ;
 		}
 		if(type == 3){
-			minimaxEvaluate(root);
+			minimaxEvaluate(node);
 		}
 	}
 	
-	public int randomEvaluate(TreeNode root){
+	public int randomEvaluate(TreeNode node){
 		
 	}
 	
-	public int greedyEvaluate(TreeNode root){
+	public int greedyEvaluate(TreeNode node){
 		
 	}
 	
-	public int randomScoreAssignEvaluate(TreeNode root){
+	public int randomScoreAssignEvaluate(TreeNode node){
 		
 		
 	}
 	
-	public int minimaxEvaluate(TreeNode root){
+	public int minimaxEvaluate(TreeNode node){
 		
 	}
 	
