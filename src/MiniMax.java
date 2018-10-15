@@ -37,9 +37,9 @@ public class MiniMax {
     }
     
     private int evaluateNode(TreeNode n){
-    	int score = 0;
-    	Evaluator xx = new Evaluator
-    	//evaluation function
+    	int score ;
+    	Evaluator eval = new Evaluator(1) ;
+    	score = eval.evaluate(n) ;
     	return score ;
     }
     

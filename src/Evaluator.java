@@ -8,37 +8,18 @@ public class Evaluator {
 		type = t ;
 	}
 	
-	public void evaluate(TreeNode node){
-		
-		if(type == 0){
-			randomEvaluate(node) ;
-		}
+	
+	public int evaluate(TreeNode t){
 		if(type == 1){
-			greedyEvaluate(node) ;
+			return mobilityEvaluate(t) ;
 		}
-		if(type == 2){
-			randomScoreAssignEvaluate(node) ;
-		}
-		if(type == 3){
-			minimaxEvaluate(node);
-		}
+		return 0 ;
 	}
 	
-	public int randomEvaluate(TreeNode node){
-		
+	public int mobilityEvaluate(TreeNode node){
+		int score = 0 ;
+		return score ;
 	}
-	
-	public int greedyEvaluate(TreeNode node){
-		
-	}
-	
-	public int randomScoreAssignEvaluate(TreeNode node){
-		
-		
-	}
-	
-	public int minimaxEvaluate(TreeNode node){
-		
-	}
+
 	
 }
