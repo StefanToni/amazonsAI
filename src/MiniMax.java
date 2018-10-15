@@ -20,7 +20,7 @@ public class MiniMax {
     	boardCopy = new int[board.length][board[0].length];
     	depthLimit = dL ;
     	constructTree() ;
-    	evaluateTree(root) ; 
+    	evaluateTree(root, currentP) ; 
     }
  
     private void constructTree() {
@@ -31,18 +31,24 @@ public class MiniMax {
         expandTree(root, depthLimit);       
     }
     
-    private void evaluateTree(TreeNode node){
-    	//maybe should be private int[][] evaluateTree ???
+    private void evaluateTree(TreeNode node, String ogP){
+    	int invoker ;
+    	if(ogP.equals("White")){
+    		invoker = 1;
+    	}
+    	else{
+    		invoker = 2 ;
+    	}
     	
     	//traverse the tree (post order traversal ??) and evaluate nodes and remember path in order to return best root child
     	
     }
     
-    private int evaluateNode(TreeNode n){
+    private void evaluateNode(TreeNode n, int ogP){
     	int score ;
     	Evaluator eval = new Evaluator(1) ;
-    	score = eval.evaluate(n) ;
-    	return score ;
+    	score = eval.evaluate(n, ogP) ;
+    	n.setScore(score);
     }
     
     
