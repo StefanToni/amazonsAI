@@ -12,7 +12,8 @@ public class TreeNode {
 		children = new ArrayList<TreeNode>() ;
 		board = b ;
 		parent = pa;
-		player = pl ;			
+		player = pl ;
+		score = 0 ;
 	}
 	
 	public void addChild(TreeNode c){

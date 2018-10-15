@@ -8,8 +8,8 @@ public class MiniMax {
     private GameTile[][] board;
     private String currentP;
     private TreeNode root ;
-    private boolean WhiteWon = false;
-    private boolean BlackWon = false;
+    private boolean whiteWon = false;
+    private boolean blackWon = false;
     int[][] boardCopy;
     int depthLimit ;
     int evaluationType = 1 ;
@@ -93,7 +93,8 @@ public class MiniMax {
     	if(limit == 0){
     		return ;
     	}
-    	if (isFinished(boardCopy, node)) {
+    	isFinished(node.getBoard(), node) ;
+    	if (blackWon || whiteWon) {
     		return;
     	}
     	
@@ -257,30 +258,32 @@ public class MiniMax {
     
     //Check for moves possible moves for given player, if there are any, game may continue, 
     //if not, method isFinished is true
-    private boolean isFinished(int[][] b, TreeNode node) {
+    private void isFinished(int[][] b, TreeNode node) {
     	if(node.getPlayer().equals("White")){
     		for(int i =0; i < b.length; i++){
     			for(int j= 0; j < b[0].length; j++){
     				if(b[i][j] == 1){
     					ArrayList<Point> possibleM = checkForLegalMoves(i,j, b);
-    					if (possibleM.size() > 0) return false;
+    					if (possibleM.size() == 0){
+    						blackWon = true ;
+    					}
     				}
     			}
     		}
     	}
-    	else {
+    	else{
     		for(int i =0; i < b.length; i++){
     			for(int j= 0; j < b[0].length; j++){
     				if(b[i][j] == 2){
     					ArrayList<Point> possibleM = checkForLegalMoves(i,j, b);
-    					if (possibleM.size() > 0) return false;
+    					if (possibleM.size() == 0){
+    						whiteWon = true ;
+    					}
     				}
     			}
     		}
     	}
-    	if (node.getPlayer().equals("White")) BlackWon = true;
-    	if (node.getPlayer().equals("Black")) WhiteWon = true;
-    	return true;
+    	
     }
     
 }
