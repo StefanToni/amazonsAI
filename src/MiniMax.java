@@ -12,15 +12,33 @@ public class MiniMax {
     private boolean BlackWon = false;
     int[][] boardCopy;
     int depthLimit ;
+    int evaluationType = 1 ;
+    int[][] bestMove ;
     
     
     public MiniMax(GameTile[][] b, String p, int dL) {
     	this.board = b;
     	this.currentP = p;
     	boardCopy = new int[board.length][board[0].length];
+    	bestMove = new int[board.length][board[0].length];
     	depthLimit = dL ;
     	constructTree() ;
-    	evaluateTree(root, currentP) ; 
+    	evaluateTree(root, currentP) ;
+    	selectBestMove(root) ;
+    }
+    
+    private void selectBestMove(TreeNode root){
+    	int bestScore = 0;
+    	for(int i = 0; i < root.getChildren().size(); i++){
+    		if(bestScore < root.getChildren().get(i).getScore()){
+    			bestScore = root.getChildren().get(i).getScore() ;
+    			for(int y = 0; y < bestMove.length; y++){
+    				for(int x = 0; x < bestMove[0].length; x++){
+    					bestMove[y][x] = root.getChildren().get(i).getBoard()[y][x] ;
+    				}
+    			}
+    		}
+    	}
     }
  
     private void constructTree() {
@@ -31,7 +49,7 @@ public class MiniMax {
         expandTree(root, depthLimit);       
     }
     
-    private void evaluateTree(TreeNode node, String ogP){
+    private void evaluateTree(TreeNode root, String ogP){
     	int invoker ;
     	if(ogP.equals("White")){
     		invoker = 1;
@@ -39,14 +57,32 @@ public class MiniMax {
     	else{
     		invoker = 2 ;
     	}
+    	traverseTree(root, invoker) ;
     	
     	//traverse the tree (post order traversal ??) and evaluate nodes and remember path in order to return best root child
     	
     }
     
+    private void traverseTree(TreeNode node, int ogP){
+    	while(node.hasChildren()){
+    		for(int i = 0; i < node.getChildren().size(); i++){
+        		traverseTree(node.getChildren().get(i), ogP);
+        	}
+    	}
+    	if(!node.hasChildren()){
+    		evaluateNode(node, ogP) ;
+    	}
+    	if(!node.isRoot()){
+    		if(node.getParent().getScore() < node.getScore()){
+        		node.getParent().setScore(node.getScore());
+        	}
+    	}
+    	
+    }
+    
     private void evaluateNode(TreeNode n, int ogP){
     	int score ;
-    	Evaluator eval = new Evaluator(1) ;
+    	Evaluator eval = new Evaluator(evaluationType) ;
     	score = eval.evaluate(n, ogP) ;
     	n.setScore(score);
     }

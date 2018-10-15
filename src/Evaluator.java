@@ -18,6 +18,7 @@ public class Evaluator {
 	}
 	
 	public int ownMobilityEvaluate(TreeNode node, int ogP){
+		//score is just equal to the number of possible moves for the invoking player at any given boardstate
 		int score = 0 ;
 		for(int i =0; i < node.getBoard().length; i++){
 			for(int j = 0 ; j < node.getBoard()[0].length; j++){
