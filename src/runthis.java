@@ -18,7 +18,7 @@ public class runthis {
 
             @Override
             public void run() {
-                Game game = new Game(args[0], args[1], args[2], args[3], args[4]);
+                Game game = new Game("human", "bot", "10", "10", "MiniMax");
                 ChessGUI cg = new ChessGUI(game);
                 game.setImages(cg.getImages());
                 

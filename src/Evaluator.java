@@ -23,6 +23,7 @@ public class Evaluator {
 		for(int i =0; i < node.getBoard().length; i++){
 			for(int j = 0 ; j < node.getBoard()[0].length; j++){
 				if(node.getBoard()[i][j] == ogP){
+					System.out.println("wasup here?");
 					ArrayList<Point> cntr = new ArrayList() ;
 					cntr = checkForLegalMoves(i, j, node.getBoard()) ;
 					score = score + cntr.size() ;

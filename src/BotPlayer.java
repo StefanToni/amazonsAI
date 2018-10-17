@@ -56,9 +56,18 @@ public class BotPlayer extends Player{// implements Runnable{
 
     public ArrayList<Position> runMiniMax(){
     	//Position[] move = new Position[3] ;
-        MiniMax minimax = new MiniMax(board, (color.equals(Color.BLACK)) ? "Black" : "White", 3);
+        MiniMax minimax = new MiniMax(board, (color.equals(Color.BLACK)) ? "Black" : "White", 1);
         
         ArrayList<Position> returnValue = new ArrayList<Position>();
+        if(minimax.bestMove[0] == null){
+        	System.out.println("origin empty");
+        }
+        if(minimax.bestMove[1] == null){
+        	System.out.println("dest empty");
+        }
+        if(minimax.bestMove[2] == null){
+        	System.out.println("arrow empty");
+        }
         this.pawn = board[minimax.bestMove[0].width][minimax.bestMove[0].height].piece;
         returnValue.add(minimax.bestMove[1]) ;
         returnValue.add(minimax.bestMove[2]) ;

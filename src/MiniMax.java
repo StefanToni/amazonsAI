@@ -29,13 +29,17 @@ public class MiniMax {
     }
     
     private Position[] selectBestMove(TreeNode root){
+    	System.out.println(" WE GOT TO SELECT BEST MOVE");
     	int bestScore = 0;
+    	//System.out.println(root.getChildren().size() + "SIZE");
     	for(int i = 0; i < root.getChildren().size(); i++){
+    		//System.out.println(bestScore + "thats score" + root.getChildren().get(i).getScore());
     		if(bestScore < root.getChildren().get(i).getScore()){
     			bestScore = root.getChildren().get(i).getScore() ;
     			bestMove[0] = root.getChildren().get(i).getOrigin() ;
     			bestMove[1] = root.getChildren().get(i).getDest() ;
     			bestMove[2] = root.getChildren().get(i).getaDest() ;
+    			System.out.println(bestMove[0].height + " " + bestMove[0].width + "thats bestmove origin");
     		}
     	}
     	return bestMove ;
@@ -50,6 +54,7 @@ public class MiniMax {
     }
     
     private void evaluateTree(TreeNode root, String ogP){
+    	System.out.println("do we even get here?");
     	int invoker ;
     	if(ogP.equals("White")){
     		invoker = 1;
@@ -96,12 +101,12 @@ public class MiniMax {
     
     
     private void expandTree(TreeNode node, int limit){
-    	
     	if(limit == 0){
     		return ;
     	}
     	isFinished(node.getBoard(), node) ;
     	if (blackWon || whiteWon) {
+    		System.out.println("O SHIT, SOMEONE WON");
     		return;
     	}
     	
@@ -109,7 +114,9 @@ public class MiniMax {
     		for(int i =0; i < boardCopy.length; i++){
     			for(int j= 0; j < boardCopy[0].length; j++){
     				if(boardCopy[i][j] == 1){
-    					ArrayList<Point> possibleM = checkForLegalMoves(i,j, boardCopy);
+    					ArrayList<Point> possibleM = new ArrayList<>();
+    					possibleM = checkForLegalMoves(i,j, boardCopy);
+    			    	//System.out.println(possibleM.size() + "White size");
     					for(int p = 0; p < possibleM.size(); p++) {
     						Point dest = possibleM.get(p);
     						int[][] movePerformed = new int[boardCopy.length][boardCopy[0].length];
@@ -134,6 +141,7 @@ public class MiniMax {
 								newNode.move[1] = newNode.getDest() ;
 								newNode.move[2] = newNode.getaDest() ;
 								node.addChild(newNode);
+								System.out.println(node.getChildren().size() + "new white node size");
 							}
     					}
     				}
@@ -141,10 +149,14 @@ public class MiniMax {
     		}
     	}
     	else{
+    		//System.out.println("YAAAAAAAAAAH BLACK!");
     		for(int i =0; i < boardCopy.length; i++){
     			for(int j= 0; j < boardCopy[0].length; j++){
     				if(boardCopy[i][j] == 2){
-    					ArrayList<Point> possibleM = checkForLegalMoves(i,j, boardCopy);
+    					//System.out.println("YEAH black");
+    					ArrayList<Point> possibleM = new ArrayList<>();
+    					possibleM = checkForLegalMoves(i,j, boardCopy);
+    					//System.out.println(possibleM.size() + "Black size");
     					for(int p = 0; p < possibleM.size(); p++) {
     						Point dest = possibleM.get(p);
     						int[][] movePerformed = new int[boardCopy.length][boardCopy[0].length];
@@ -169,6 +181,7 @@ public class MiniMax {
 								newNode.move[1] = newNode.getDest() ;
 								newNode.move[2] = newNode.getaDest() ;
 								node.addChild(newNode);
+						    	//System.out.println(node.getChildren().size() + "new black node size");
 							}
     					}
     				}
@@ -255,12 +268,15 @@ public class MiniMax {
     	for(int x = 0; x < b.length; x++) {
     		for (int y = 0; y < b[0].length; y++) {
     			if (b[y][x].hasPiece) {
-    				if(b[y][x].piece.color == Color.WHITE){
-    					board[y][x] = 1;
+    				if(b[y][x].piece != null){
+    					if(b[y][x].piece.color == Color.WHITE){
+        					board[y][x] = 1;
+        				}
+    					else{
+        					board[y][x] = 2;
+        				}
     				}
-    				else if (b[y][x].piece.color == Color.BLACK) {
-    					board[y][x] = 2;
-    				}
+    				
     				else if (b[y][x].shot) {
     				board[y][x] = 3;
     				}
@@ -270,7 +286,12 @@ public class MiniMax {
     			}
     		}
     	}
-    	
+    	for(int i = 0; i < board.length; i++){
+    		for(int j = 0; j < board[0].length; j++){
+    			System.out.print(board[j][i]);
+    		}
+    		System.out.println();
+    	}
     	return board;
     	
     }
