@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+
+
 public class TreeNode {
 	
 	private int[][] board ;
@@ -7,6 +9,10 @@ public class TreeNode {
 	private TreeNode parent ;
 	private ArrayList<TreeNode> children ;
 	private int score ;
+	private Position origin ;
+	private Position dest ;
+	private Position aDest ;
+	public Position[] move ;
 	
 	public TreeNode(int[][] b, String pl, TreeNode pa){
 		children = new ArrayList<TreeNode>() ;
@@ -14,8 +20,35 @@ public class TreeNode {
 		parent = pa;
 		player = pl ;
 		score = 0 ;
+		move = new Position[3] ;
 	}
 	
+	public Position getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(Position origin) {
+		this.origin = origin;
+	}
+
+	public Position getDest() {
+		return dest;
+	}
+
+	public void setDest(Position dest) {
+		this.dest = dest;
+	}
+
+	public Position getaDest() {
+		return aDest;
+	}
+
+	public void setaDest(Position aDest) {
+		this.aDest = aDest;
+	}
+
+	
+
 	public void addChild(TreeNode c){
 		children.add(c) ;
 	}

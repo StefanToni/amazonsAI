@@ -13,32 +13,32 @@ public class MiniMax {
     int[][] boardCopy;
     int depthLimit ;
     int evaluationType = 1 ;
-    int[][] bestMove ;
+    Position[] bestMove ;
     
     
     public MiniMax(GameTile[][] b, String p, int dL) {
     	this.board = b;
     	this.currentP = p;
     	boardCopy = new int[board.length][board[0].length];
-    	bestMove = new int[board.length][board[0].length];
+    	bestMove = new Position[3] ;
     	depthLimit = dL ;
     	constructTree() ;
     	evaluateTree(root, currentP) ;
-    	selectBestMove(root) ;
+    	bestMove = selectBestMove(root) ;
+    	
     }
     
-    private void selectBestMove(TreeNode root){
+    private Position[] selectBestMove(TreeNode root){
     	int bestScore = 0;
     	for(int i = 0; i < root.getChildren().size(); i++){
     		if(bestScore < root.getChildren().get(i).getScore()){
     			bestScore = root.getChildren().get(i).getScore() ;
-    			for(int y = 0; y < bestMove.length; y++){
-    				for(int x = 0; x < bestMove[0].length; x++){
-    					bestMove[y][x] = root.getChildren().get(i).getBoard()[y][x] ;
-    				}
-    			}
+    			bestMove[0] = root.getChildren().get(i).getOrigin() ;
+    			bestMove[1] = root.getChildren().get(i).getDest() ;
+    			bestMove[2] = root.getChildren().get(i).getaDest() ;
     		}
     	}
+    	return bestMove ;
     }
  
     private void constructTree() {
@@ -73,9 +73,16 @@ public class MiniMax {
     		evaluateNode(node, ogP) ;
     	}
     	if(!node.isRoot()){
-    		if(node.getParent().getScore() < node.getScore()){
-        		node.getParent().setScore(node.getScore());
+    		if((node.getParent().getPlayer().equals("White") && ogP == 1) || (node.getParent().getPlayer().equals("Black") && ogP == 2)){
+    			if(node.getParent().getScore() < node.getScore()){
+    				node.getParent().setScore(node.getScore());
+    			}
         	}
+    		else{
+    			if(node.getParent().getScore() > node.getScore()){
+    				node.getParent().setScore(node.getScore());
+    			}
+    		}
     	}
     	
     }
@@ -120,6 +127,12 @@ public class MiniMax {
 								int[][] finished = new int[movePerformed.length][movePerformed[0].length];
 								finished[shot.y][shot.x] = 3 ;
 								TreeNode newNode = new TreeNode(finished, "Black", node);
+								newNode.setOrigin(board[i][j].position);
+								newNode.setDest(board[dest.y][dest.x].position);
+								newNode.setaDest(board[shot.y][shot.x].position) ;
+								newNode.move[0] = newNode.getOrigin() ;
+								newNode.move[1] = newNode.getDest() ;
+								newNode.move[2] = newNode.getaDest() ;
 								node.addChild(newNode);
 							}
     					}
@@ -149,6 +162,12 @@ public class MiniMax {
 								int[][] finished = new int[movePerformed.length][movePerformed[0].length];
 								finished[shot.y][shot.x] = 3 ;
 								TreeNode newNode = new TreeNode(finished, "White", node);
+								newNode.setOrigin(board[i][j].position);
+								newNode.setDest(board[dest.y][dest.x].position);
+								newNode.setaDest(board[shot.y][shot.x].position) ;
+								newNode.move[0] = newNode.getOrigin() ;
+								newNode.move[1] = newNode.getDest() ;
+								newNode.move[2] = newNode.getaDest() ;
 								node.addChild(newNode);
 							}
     					}
