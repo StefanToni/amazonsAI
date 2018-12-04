@@ -1,8 +1,8 @@
-import java.awt.*;
+import java.awt.Color;
 
-public class HumanPlayer extends Player{
+public class HumanPlayer extends AbstractPlayer {
 
-    HumanPlayer(Color color){
+    HumanPlayer(Color color) {
         super(color);
     }
 

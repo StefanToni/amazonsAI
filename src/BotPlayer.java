@@ -1,78 +1,66 @@
-import java.awt.*;
-import java.util.ArrayList;
+import java.awt.Color;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.function.Supplier;
 
-public class BotPlayer extends Player{// implements Runnable{
+public class BotPlayer extends AbstractPlayer {
 
-    public Position move;
-    public Position shot;
-    public Piece pawn;
-    private HashMap<String, Supplier<ArrayList<Position>>> algorithms = new HashMap<>();
+    private HashMap<String, Supplier<String>> algorithms = new HashMap<>();
     public String algorithm;
-    private Random rand = new Random();
-    private GameTile[][] board ;
+    private Algorithm brain;
+    private Board board;
 
-    BotPlayer(Color color, GameTile[][] b, String algorithm){
+    BotPlayer(Color color, String algorithm, Board board) {
         super(color);
         this.algorithm = algorithm;
-        algorithms.put("Random", () -> runRandom());
-        algorithms.put("MiniMax", () -> runMiniMax());
-        //Add conversion from GameTile array to int array
-        board = b ;
+        this.board = board;
+        algorithms.put("random", () -> runRandom());
+        algorithms.put("miniMax", () -> runMiniMax());
+        algorithms.put("k_nearest", () -> runK_Nearest());
+        algorithms.put("q_learning", () -> runPythonAlgorithm());
     }
 
     /*
-    *input: void
-    *   Method to be overriden to make new bots.
-    *   Finds a random pawn from the players' collection
-    *   and makes a random move
-    *return: void
-    */
-    public void run(){
-        ArrayList<Position> move_and_shot = algorithms.get(algorithm).get();
-        if(move_and_shot.size() == 2){
-            this.move = move_and_shot.get(0);
-            this.shot = move_and_shot.get(1);
-        } else if(move_and_shot.size() < 2){
-            this.move = move_and_shot.get(0);
-        } else {
-            System.out.println("There's a bug here");
+     * input: void Method to be overriden to make new bots. Finds a random pawn from
+     * the players' collection and makes a random move return: void
+     */
+    public boolean run() {
+        // run the right algorithm
+        String newBoard = algorithms.get(algorithm).get();
+        // display the new board
+        return this.board.decode(newBoard);
+    }
+
+    public String runRandom() {
+        if (this.brain == null)
+            this.brain = new RandomMover(this.board, this.pawns);
+        return this.brain.findBestMove();
+    }
+
+    public String runMiniMax() {
+        if (this.brain == null)
+            this.brain = new MiniMax(this.board, this.pawns);
+        return this.brain.findBestMove();
+    }
+
+    public String runK_Nearest() {
+        if (this.brain == null)
+            this.brain = new KNearestNeighbour(this.board, this.pawns);
+        return this.brain.findBestMove();
+    }
+
+    public String runPythonAlgorithm() {
+        if (this.brain == null) {
+            PythonAlgorithm brainThread = new PythonAlgorithm(this.board, this.algorithm);
+            brainThread.run();
+            this.brain = brainThread;
+        }
+        try {
+            return this.brain.findBestMove();
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.exit(2);
+            return null;
         }
     }
 
-    public void runAgain(){
-        ArrayList<Position> move_and_shot = algorithms.get(algorithm).get();
-        this.shot = move_and_shot.get(0);
-    }
-
-    public ArrayList<Position> runRandom(){
-        ArrayList<Position> returnValue = new ArrayList<Position>();
-        this.pawn = this.pawns.get(rand.nextInt(4));
-        returnValue.add(pawn.movesPool.get(rand.nextInt(pawn.movesPool.size())));
-        return returnValue;
-    }
-
-    public ArrayList<Position> runMiniMax(){
-    	//Position[] move = new Position[3] ;
-        MiniMax minimax = new MiniMax(board, (color.equals(Color.BLACK)) ? "Black" : "White", 1);
-        
-        ArrayList<Position> returnValue = new ArrayList<Position>();
-        if(minimax.bestMove[0] == null){
-        	System.out.println("origin empty");
-        }
-        if(minimax.bestMove[1] == null){
-        	System.out.println("dest empty");
-        }
-        if(minimax.bestMove[2] == null){
-        	System.out.println("arrow empty");
-        }
-        this.pawn = board[minimax.bestMove[0].width][minimax.bestMove[0].height].piece;
-        returnValue.add(minimax.bestMove[1]) ;
-        returnValue.add(minimax.bestMove[2]) ;
-        return returnValue ;
-        
-    }
-    
 }
