@@ -24,8 +24,12 @@ public class newMiniMax implements Algorithm {
 	}
 	
 	private void constructTree() {
-		root = new TreeNode(null, board);
-		expandTree(root, depthlimit); 
+		root = new TreeNode(null, Game.chessBoard.encode(), playing);
+		expandTree(root, depthLimit); 
+	}
+	
+	private void expandTree(TreeNode root, int depthLimit){
+		
 	}
 	
 	@Override
