@@ -9,14 +9,12 @@ public class TreeNode {
 	private int score ;
 	private static Board board ;
 	private String codedBoard ;
-	private static Game game ;
 	private String playing ;
 	
-	public TreeNode(TreeNode pa, String b, Game g){
+	public TreeNode(TreeNode pa, String b){
 		children = new ArrayList<TreeNode>() ;
 		parent = pa;
 		score = 0 ;
-		game = g ;
 		codedBoard = b ;
 		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ;
 		board.decode(b) ;
