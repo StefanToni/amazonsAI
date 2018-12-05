@@ -20,7 +20,6 @@ public class newMiniMax implements Algorithm {
 		depthLimit = 1 ;
 		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ;
 		board.decode(Game.chessBoard.encode()) ;
-		constructTree();
 	}
 	
 	private void constructTree() {
@@ -41,6 +40,7 @@ public class newMiniMax implements Algorithm {
 	@Override
 	public String findBestMove() {
 		// TODO Auto-generated method stub
+		constructTree() ;
 		return null;
 	}
 
