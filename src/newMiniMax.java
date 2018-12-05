@@ -18,7 +18,7 @@ public class newMiniMax implements Algorithm {
 		player = p ;
 		playing = p.color.toString() ;
 		depthLimit = 1 ;
-		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ; ;
+		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ;
 		board.decode(Game.chessBoard.encode()) ;
 	}
 	
