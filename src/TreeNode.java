@@ -7,8 +7,8 @@ public class TreeNode {
 	private TreeNode parent ;
 	private ArrayList<TreeNode> children ;
 	private int score ;
-	private Board board ;
-	private Game game ;
+	private static Board board ;
+	private static Game game ;
 	private String playing ;
 	
 	public TreeNode(TreeNode pa, String b, Game g){
