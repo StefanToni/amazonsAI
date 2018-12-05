@@ -5,7 +5,7 @@ public class Board {
     public GameTile[][] tiles;
     public int size;
     public boolean enabled = true;
-    private Game parentGame;
+    public Game parentGame;
 
     /*
      * input: number of columns, number of rows Builds a args[2] x args[3] size
