@@ -9,6 +9,7 @@ public class TreeNode {
 	private int score ;
 	private Board board ;
 	private Game game ;
+	private String playing ;
 	
 	public TreeNode(TreeNode pa, String b, Game g){
 		children = new ArrayList<TreeNode>() ;
@@ -17,6 +18,7 @@ public class TreeNode {
 		game = g ;
 		board = new Board(game.getBoard().size, game.getBoard().size, game) ;
 		board.decode(b) ;
+		playing = g.getPlaying() ;
 	}
 
 	public void addChild(TreeNode c){

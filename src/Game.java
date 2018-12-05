@@ -236,5 +236,9 @@ public class Game {
     public final AbstractPlayer getPlayer(String color) {
         return players.get(color);
     }
+    
+    public String getPlaying(){
+    	return playing ;
+    }
 
 }
