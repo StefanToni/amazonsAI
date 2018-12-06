@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 public class TreeNode {
 	
-	private TreeNode parent ;
+	private TreeNode parent = null ;
 	private ArrayList<TreeNode> children ;
 	private int score ;
 	private static Board board ;
 	private String codedBoard ;
 	public String playing ;
 	
+
 	public TreeNode(TreeNode pa, String b, String p){
 		children = new ArrayList<TreeNode>() ;
 		parent = pa;
@@ -23,8 +24,13 @@ public class TreeNode {
 
 	public void addChild(TreeNode c){
 		children.add(c) ;
+		c.setParent(this);
 	}
 	
+	private void setParent(TreeNode treeNode) {
+		this.parent = treeNode;
+	}
+
 	public ArrayList<TreeNode> getChildren(){
 		return children ;
 	}
@@ -68,5 +74,12 @@ public class TreeNode {
 		return score ;
 	}
 
+	public String getPlaying() {
+		return playing;
+	}
+
+	public void setPlaying(String playing) {
+		this.playing = playing;
+	}
 
 }
