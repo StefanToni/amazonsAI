@@ -9,7 +9,7 @@ public class TreeNode {
 	private int score ;
 	private static Board board ;
 	private String codedBoard ;
-	private String playing ;
+	public String playing ;
 	
 	public TreeNode(TreeNode pa, String b, String p){
 		children = new ArrayList<TreeNode>() ;
