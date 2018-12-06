@@ -38,7 +38,7 @@ public class BotPlayer extends AbstractPlayer {
 
     public String runMiniMax() {
         if (this.brain == null)
-            this.brain = new MiniMax(this.board, this.pawns);
+            this.brain = new newMiniMax(this);
         return this.brain.findBestMove();
     }
 

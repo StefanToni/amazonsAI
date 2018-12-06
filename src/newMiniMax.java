@@ -12,9 +12,9 @@ public class newMiniMax implements Algorithm {
 	private int depthLimit ;
 	private int evalType = 1 ;
 	private static Board board ;
-	private Player player ;
+	private BotPlayer player ;
 	
-	public newMiniMax(Player p){
+	public newMiniMax(BotPlayer p){
 		player = p ;
 		playing = p.color.toString() ;
 		depthLimit = 1 ;
