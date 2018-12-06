@@ -26,5 +26,6 @@ public abstract class Player {
             if(piece.movesPool.isEmpty()) return true;
         return false;
     }
+ 
 
 }

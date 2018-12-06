@@ -30,10 +30,11 @@ private String currentP;
 private TreeNode root;
 private boolean whiteWon = false;
 private boolean blackWon = false;
-int[][] boardCopy;
+String boardString;
 int depthLimit;
 int evaluationType = 1;
 Position[] bestMove;
+
 
 public MiniMax(GameTile[][] b, String p, int dL) {
 	this.board = b;
@@ -61,26 +62,27 @@ public String findBestMove() {
 private Position[] selectBestMove(TreeNode root) {
 	System.out.println(" WE GOT TO SELECT BEST MOVE");
 	int bestScore = 0;
-	System.out.println(root.getChildren().size() + "SIZE");
+	//System.out.println(root.getChildren().size() + "SIZE");
 	for (int i = 0; i < root.getChildren().size(); i++) {
 
-		System.out.println(bestScore + "thats score" + root.getChildren().get(i).getScore());
+		//System.out.println(bestScore + "thats score" + root.getChildren().get(i).getScore());
 		if (bestScore < root.getChildren().get(i).getScore()) {
 			bestScore = root.getChildren().get(i).getScore();
 			bestMove[0] = root.getChildren().get(i).getOrigin();
 			bestMove[1] = root.getChildren().get(i).getDest();
 			bestMove[2] = root.getChildren().get(i).getaDest();
-			System.out.println(bestMove[0].height + " " + bestMove[0].width + "thats bestmove origin");
+			//System.out.println(bestMove[0].height + " " + bestMove[0].width + "thats bestmove origin");
 		}
 	}
 	return bestMove;
 }
 
 private void constructTree() {
-	tree = new SearchTree(null); 
-	boardCopy = copyBoard(board);
-	root = new TreeNode(boardCopy, currentP, null);
-	//tree.setRoot(root); expandTree(root, depthLimit); }
+	boardString = Game.chessBoard.encode();
+	tree = new TreeNode(null, boardString, Game); 
+	//root = new TreeNode(boardCopy, currentP, null);
+	//tree.setRoot(root); 
+	expandTree(tree, depthLimit); }
 
 	private void evaluateTree(TreeNode root, String ogP) {
 
@@ -140,8 +142,9 @@ private void constructTree() {
 			System.out.println("O SHIT, SOMEONE WON");
 			return;
 		}
-
+		//int[][] boardCopy = node.getBoard();
 		if (node.getPlayer().equals("White")) {
+			
 			for (int i = 0; i < boardCopy.length; i++) {
 				for (int j = 0; j < boardCopy[0].length; j++) {
 					System.out.println("startd copying white");
@@ -345,6 +348,8 @@ private int[][] copyBoard(GameTile[][] b)
 	return board;
 
 }
+
+
 
 // Check for moves possible moves for given player, if there are any, game may
 // continue, if not, method isFinished is true
