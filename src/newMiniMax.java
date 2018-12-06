@@ -64,6 +64,7 @@ public class newMiniMax implements Algorithm {
 	
 	private void expandTree(TreeNode root, int depthLimit){
 		int localLimit = depthLimit;
+		board.decode(root.codedBoard) ;
 		if (localLimit == 0) {
 			return;
 		}
