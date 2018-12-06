@@ -5,6 +5,7 @@ import java.awt.Point;
 
 public class newMiniMax implements Algorithm {
 	
+	
 	private String playing ;
 	private TreeNode root ;
 	private boolean whiteWon ;
