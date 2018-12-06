@@ -11,6 +11,7 @@ public class TreeNode {
 	private String codedBoard ;
 	private String playing ;
 	
+
 	public TreeNode(TreeNode pa, String b, String p){
 		children = new ArrayList<TreeNode>() ;
 		parent = pa;
@@ -73,5 +74,12 @@ public class TreeNode {
 		return score ;
 	}
 
+	public String getPlaying() {
+		return playing;
+	}
+
+	public void setPlaying(String playing) {
+		this.playing = playing;
+	}
 
 }
