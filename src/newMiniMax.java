@@ -81,13 +81,26 @@ public class newMiniMax implements Algorithm {
 		for(int i = 0; i < player.pawns.size(); i++){
 			Piece selectedPawn = player.pawns.get(i) ;
 			ArrayList<Position[]> possibleMoves = new ArrayList() ;
-			possibleMoves.addAll(computeAllMoves()) ;
+			ArrayList<Position > possibleMoveDestinations = new ArrayList() ;
+			selectedPawn.findPaths() ;
+			possibleMoveDestinations = selectedPawn.movesPool ;
+			for(int m = 0; m < possibleMoveDestinations.size(); m++){
+				Position[] move = new Position[3] ;
+				move[0] = selectedPawn.position ;
+				move[1] = possibleMoveDestinations.get(m) ;
+			}
 			for(int j = 0; j < possibleMoves.size(); j++){
+				Position origin = new Position(selectedPawn.position.width, selectedPawn.position.height) ;
 				move(possibleMoves.get(j));
-				ArrayList<Position[]> possibleShots = new ArrayList() ;
-				possibleShots.addAll(computeAllShots()) ;
+				ArrayList<Position> possibleShots = new ArrayList() ;
+				selectedPawn.findPaths();
+				possibleShots = selectedPawn.movesPool ;
 				for(int k = 0; k < possibleShots.size(); k++){
-					movesForAllFour.add(possibleShots.get(k)) ;
+					Position[] finalMove = new Position[3] ;
+					finalMove[0] = origin ;
+					finalMove[1] = selectedPawn.position ;
+					finalMove[2] = possibleShots.get(k) ;
+					movesForAllFour.add(finalMove) ;
 					//GameTile tile = board.tiles[possibleShots.get(k)[2].width][possibleShots.get(k)[2].height];
 					//tile.wasShot = false ;
 				}
