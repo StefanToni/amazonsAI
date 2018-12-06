@@ -28,7 +28,10 @@ public class newMiniMax implements Algorithm {
 	}
 	
 	private void expandTree(TreeNode root, int depthLimit){
-		
+		int localLimit = depthLimit;
+		if (localLimit == 0) {
+			return;
+		}
 	}
 	
 	@Override
