@@ -5,15 +5,12 @@ public class Evaluator {
 	
 	private int type ;
 	private ArrayList<Piece> pawns ;
+	private String playing ;
 		
-	public Evaluator(int t, ArrayList<Piece> p){
+	public Evaluator(int t, BotPlayer player){
 		type = t ;
-		for(int i = 0;  i < p.size(); i++){
-			Piece toAdd = new Piece(p.get(i).color) ;
-			toAdd.position.height = p.get(i).position.height ;
-			toAdd.position.width = p.get(i).position.width ;
-			pawns.add(toAdd) ;
-		}
+		pawns = player.pawns ;
+		playing = player.color.toString() ;
 	}
 	
 	

@@ -21,38 +21,28 @@ public class newMiniMax implements Algorithm {
 		depthLimit = 1 ;
 		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ;
 		board.decode(Game.chessBoard.encode()) ;
-		constructTree();
-		evaluateTree(root);
 	}
+	
+	
 
 	private void constructTree() {
 		root = new TreeNode(null, Game.chessBoard.encode(), playing);
-		expandTree(root, depthLimit); 
+		expandTree(root, depthLimit);
+		
 	}
 	
-	private void evaluateTree(TreeNode node) {
-
-		int invoker;
-		if (ogP.equals("White")) {
-			invoker = 1;
-		} else {
-			invoker = 2;
-		}
-		traverseTree(root, invoker);
-
-	}
 	
-	private void traverseTree(TreeNode node, int ogP) {
+	private void traverseTree(TreeNode node) {
 		while (node.hasChildren()) {
 			for (int i = 0; i < node.getChildren().size(); i++) {
-				traverseTree(node.getChildren().get(i), ogP);
+				traverseTree(node.getChildren().get(i));
 			}
 		}
 			if (!node.hasChildren()) {
-				evaluateNode(node, ogP);
+				evaluateNode(node);
 			}
 		if (!node.isRoot())	{
-			if ((node.getParent().getPlaying().equals("White") && ogP == 1) || (node.getParent().getPlaying().equals("Black") && ogP == 2)) {
+			if (node.getParent().getPlaying().equals(playing)) {
 				if (node.getParent().getScore() < node.getScore()) {
 					node.getParent().setScore(node.getScore());
 			}
@@ -65,9 +55,9 @@ public class newMiniMax implements Algorithm {
 		}
 	}
 	
-	private void evaluateNode(TreeNode n, int ogP) {
+	private void evaluateNode(TreeNode n) {
 		int score;
-		Evaluator eval = new Evaluator(1,/*array with pawns*/);
+		Evaluator eval = new Evaluator(evalType, player);
 		score = eval.evaluate(n);
 		n.setScore(score);
 	}
@@ -160,8 +150,16 @@ public class newMiniMax implements Algorithm {
 	@Override
 	public String findBestMove() {
 		// TODO Auto-generated method stub
-		constructTree() ;
-		return null;
+		constructTree();
+		traverseTree(root);
+		TreeNode bestMoveNode = null ;
+		int maxScore = 0 ;
+		for(int i = 0; i < root.getChildren().size(); i++){
+			if(root.getChildren().get(i).getScore() > maxScore){
+				bestMoveNode = root.getChildren().get(i) ;
+			}
+		}
+		return bestMoveNode.codedBoard;
 	}
 
 }
