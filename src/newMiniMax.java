@@ -18,7 +18,7 @@ public class newMiniMax implements Algorithm {
 	public newMiniMax(BotPlayer p){
 		player = p ;
 		playing = p.color.toString() ;
-		depthLimit = 1 ;
+		depthLimit = 3 ;
 		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ;
 		board.decode(Game.chessBoard.encode()) ;
 	}
