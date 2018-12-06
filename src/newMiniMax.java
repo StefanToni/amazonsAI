@@ -20,11 +20,26 @@ public class newMiniMax implements Algorithm {
 		depthLimit = 1 ;
 		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ;
 		board.decode(Game.chessBoard.encode()) ;
+		constructTree();
+		evaluateTree(root);
 	}
-	
+
 	private void constructTree() {
 		root = new TreeNode(null, Game.chessBoard.encode(), playing);
 		expandTree(root, depthLimit); 
+	}
+	
+	private void evaluateTree(TreeNode node) {
+		
+		
+	}
+	
+	private void traverseTree(TreeNode node) {
+		while (node.hasChildren()) {
+			for (int i = 0; i < node.getChildren().size(); i++) {
+				traverseTree(node.getChildren().get(i));
+			}
+		}
 	}
 	
 	private void expandTree(TreeNode root, int depthLimit){

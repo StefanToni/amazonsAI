@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TreeNode {
 	
-	private TreeNode parent ;
+	private TreeNode parent = null ;
 	private ArrayList<TreeNode> children ;
 	private int score ;
 	private static Board board ;
@@ -23,8 +23,13 @@ public class TreeNode {
 
 	public void addChild(TreeNode c){
 		children.add(c) ;
+		c.setParent(this);
 	}
 	
+	private void setParent(TreeNode treeNode) {
+		this.parent = treeNode;
+	}
+
 	public ArrayList<TreeNode> getChildren(){
 		return children ;
 	}
