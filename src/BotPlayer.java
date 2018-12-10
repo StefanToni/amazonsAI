@@ -14,7 +14,7 @@ public class BotPlayer extends AbstractPlayer {
         this.algorithm = algorithm;
         this.board = board;
         algorithms.put("random", () -> runRandom());
-        algorithms.put("miniMax", () -> runMiniMax());
+        algorithms.put("minimax", () -> runMiniMax());
         algorithms.put("k_nearest", () -> runK_Nearest());
         algorithms.put("q_learning", () -> runPythonAlgorithm());
     }
@@ -37,8 +37,7 @@ public class BotPlayer extends AbstractPlayer {
     }
 
     public String runMiniMax() {
-        if (this.brain == null)
-            this.brain = new newMiniMax(this);
+        this.brain = new newMiniMax(this);
         return this.brain.findBestMove();
     }
 

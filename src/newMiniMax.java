@@ -18,7 +18,7 @@ public class newMiniMax implements Algorithm {
 	public newMiniMax(BotPlayer p){
 		player = p ;
 		playing = p.color.toString() ;
-		depthLimit = 3 ;
+		depthLimit = 1 ;
 		board = new Board(Game.chessBoard.size, Game.chessBoard.size, Game.chessBoard.parentGame) ;
 		board.decode(Game.chessBoard.encode()) ;
 	}
@@ -27,20 +27,21 @@ public class newMiniMax implements Algorithm {
 
 	private void constructTree() {
 		root = new TreeNode(null, Game.chessBoard.encode(), playing);
+		//System.out.println("constructed");
 		expandTree(root, depthLimit);
 		
 	}
 	
 	
 	private void traverseTree(TreeNode node) {
-		while (node.hasChildren()) {
+		if(node.hasChildren()) {
 			for (int i = 0; i < node.getChildren().size(); i++) {
 				traverseTree(node.getChildren().get(i));
 			}
 		}
-			if (!node.hasChildren()) {
-				evaluateNode(node);
-			}
+		if (!node.hasChildren()) {
+			evaluateNode(node);
+		}
 		if (!node.isRoot())	{
 			if (node.getParent().getPlaying().equals(playing)) {
 				if (node.getParent().getScore() < node.getScore()) {
@@ -59,6 +60,7 @@ public class newMiniMax implements Algorithm {
 		int score;
 		Evaluator eval = new Evaluator(evalType, player);
 		score = eval.evaluate(n);
+		System.out.println("score = " + score);
 		n.setScore(score);
 	}
 	
@@ -68,8 +70,10 @@ public class newMiniMax implements Algorithm {
 		if (localLimit == 0) {
 			return;
 		}
+		//System.out.println("depthlimit = " + depthLimit);
 		ArrayList<Position[]> movesForAllFour = new ArrayList() ;
 		for(int i = 0; i < player.pawns.size(); i++){
+			//System.out.println("selected the " + i + "th pawn");
 			Piece selectedPawn = player.pawns.get(i) ;
 			ArrayList<Position[]> possibleMoves = new ArrayList() ;
 			ArrayList<Position > possibleMoveDestinations = new ArrayList() ;
@@ -79,6 +83,7 @@ public class newMiniMax implements Algorithm {
 				Position[] move = new Position[3] ;
 				move[0] = selectedPawn.position ;
 				move[1] = possibleMoveDestinations.get(m) ;
+				possibleMoves.add(move) ;
 			}
 			for(int j = 0; j < possibleMoves.size(); j++){
 				Position origin = new Position(selectedPawn.position.width, selectedPawn.position.height) ;
@@ -114,6 +119,7 @@ public class newMiniMax implements Algorithm {
 		for(int i = 0; i < root.getChildren().size(); i++){
 			expandTree(root.getChildren().get(i), localLimit - 1) ;
 		}
+		//System.out.println("expanded");
 	}
 	
 	private String nextPlayer(TreeNode node){
@@ -145,12 +151,14 @@ public class newMiniMax implements Algorithm {
 	@Override
 	public Piece pickPawn() {
 		// TODO Auto-generated method stub
+		System.out.println("trying to pick pawn");
 		return null;
 	}
 
 	@Override
 	public String findBestMove() {
 		// TODO Auto-generated method stub
+		//System.out.println("find best move start");
 		constructTree();
 		traverseTree(root);
 		TreeNode bestMoveNode = null ;
@@ -160,6 +168,8 @@ public class newMiniMax implements Algorithm {
 				bestMoveNode = root.getChildren().get(i) ;
 			}
 		}
+		System.out.println(root.getChildren().size());
+		//System.out.println("selected best movenode");
 		return bestMoveNode.codedBoard;
 	}
 
